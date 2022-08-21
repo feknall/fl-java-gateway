@@ -3,9 +3,9 @@ package com.example.fljavagateway;
 import org.hyperledger.fabric.client.CommitException;
 import org.hyperledger.fabric.client.Contract;
 import org.hyperledger.fabric.client.GatewayException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class BlockchainBl {
 
     private final Contract contract;
@@ -22,17 +22,26 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] addModelUpdate() {
+    public byte[] startTraining(String modelId) {
         try {
-            return contract.submitTransaction("AddModelUpdate");
+            return contract.submitTransaction("StartTraining", modelId);
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public byte[] createModelMetadata(String modelId, String modelName) {
+    public byte[] createModelMetadata(String modelId,
+                                      String modelName,
+                                      String clientsPerRound,
+                                      String secretsPerClient,
+                                      String trainingRounds) {
         try {
-            return contract.submitTransaction("CreateModelMetadata", modelId, modelName);
+            return contract.submitTransaction("CreateModelMetadata",
+                    modelId,
+                    modelName,
+                    clientsPerRound,
+                    secretsPerClient,
+                    trainingRounds);
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -86,9 +95,21 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] getAllAssets() {
+    public byte[] getRoleInCertificate() {
         try {
-            return contract.evaluateTransaction("GetAllAssets");
+            return contract.evaluateTransaction("GetRoleInCertificate");
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void listen() {
+
+    }
+
+    public byte[] getTrainedModel(String modelId) {
+        try {
+            return contract.evaluateTransaction("GetTrainedModel", modelId);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }

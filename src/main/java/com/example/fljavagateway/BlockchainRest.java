@@ -1,13 +1,17 @@
 package com.example.fljavagateway;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BlockchainRest {
 
+    private final Logger logger = LoggerFactory.getLogger(EventListener.class);
     private final BlockchainBl blockchainBl;
 
     public BlockchainRest(BlockchainBl blockchainBl) {
@@ -19,14 +23,24 @@ public class BlockchainRest {
         return blockchainBl.initLedger();
     }
 
+    @PostMapping("/admin/startTraining")
+    public byte[] startTraining(@RequestParam String modelId) {
+        return blockchainBl.startTraining(modelId);
+    }
+
     @PostMapping("/admin/createModelMetadata")
-    public byte[] createModelMetadata(@RequestParam String modelId, @RequestParam String modelName) {
-        return blockchainBl.createModelMetadata(modelId, modelName);
+    public byte[] createModelMetadata(@RequestBody ModelMetadata modelMetadata) {
+        return blockchainBl.createModelMetadata(modelMetadata.getModelId(),
+                modelMetadata.getName(), modelMetadata.getClientsPerRound(),
+                modelMetadata.getSecretsPerClient(),
+                modelMetadata.getTrainingRounds());
     }
 
     @PostMapping("/leadAggregator/addEndRoundModel")
-    public byte[] addEndRoundModel(String modelId, String round, String weights) {
-        return blockchainBl.addEndRoundModel(modelId, round, weights);
+    public byte[] addEndRoundModel(EndRoundModel endRoundModel) {
+        return blockchainBl.addEndRoundModel(endRoundModel.getModelId(),
+                endRoundModel.getRound(),
+                endRoundModel.getWeights());
     }
 
     @GetMapping("/leadAggregator/readAggregatedModelUpdate")
@@ -35,8 +49,10 @@ public class BlockchainRest {
     }
 
     @PostMapping("/aggregator/addAggregatedSecret")
-    public byte[] addAggregatedSecret(String modelId, String round, String weights) {
-        return blockchainBl.addAggregatedSecret(modelId, round, weights);
+    public byte[] addAggregatedSecret(AggregatedSecret aggregatedSecret) {
+        return blockchainBl.addAggregatedSecret(aggregatedSecret.getModelId(),
+                aggregatedSecret.getRound(),
+                aggregatedSecret.getWeights());
     }
 
     @GetMapping("/aggregator/readModelSecrets")
@@ -45,8 +61,8 @@ public class BlockchainRest {
     }
 
     @PostMapping("/user/addModelSecret")
-    public byte[] addModelSecret(String modelId, String round, String weights) {
-        return blockchainBl.addModelSecret(modelId, round, weights);
+    public byte[] addModelSecret(ModelSecret modelSecret) {
+        return blockchainBl.addModelSecret(modelSecret.getModelId(), modelSecret.getRound(), modelSecret.getWeights());
     }
 
     @GetMapping("/user/readEndRoundModel")
@@ -54,9 +70,14 @@ public class BlockchainRest {
         return blockchainBl.readEndRoundModel(modelId, round);
     }
 
-    @GetMapping("/user/getAllAssets")
-    public byte[] getAllAssets() {
-        return blockchainBl.getAllAssets();
+    @GetMapping("/general/getRoleInCertificate")
+    public byte[] getRoleInCertificate() {
+        return blockchainBl.getRoleInCertificate();
+    }
+
+    @GetMapping("/general/getTrainedModel")
+    public byte[] getTrainedModel(@RequestParam String modelId) {
+        return blockchainBl.getTrainedModel(modelId);
     }
 
 }
