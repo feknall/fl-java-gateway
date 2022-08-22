@@ -32,9 +32,9 @@ public class Org1Settings {
     // Path to crypto materials.
     private static final Path cryptoPath = Paths.get("/home/hamid/Documents/fabric-samples", "test-network", "organizations", "peerOrganizations", "org1.example.com");
     // Path to user certificate.
-    private static final Path certPath = cryptoPath.resolve(Paths.get("users", "User1@org1.example.com", "msp", "signcerts", "cert.pem"));
+    private static final Path certPath = cryptoPath.resolve(Paths.get("users", "Trainer1@org1.example.com", "msp", "signcerts", "cert.pem"));
     // Path to user private key directory.
-    private static final Path keyDirPath = cryptoPath.resolve(Paths.get("users", "User1@org1.example.com", "msp", "keystore"));
+    private static final Path keyDirPath = cryptoPath.resolve(Paths.get("users", "Trainer1@org1.example.com", "msp", "keystore"));
     // Path to peer tls certificate.
     private static final Path tlsCertPath = cryptoPath.resolve(Paths.get("peers", "peer0.org1.example.com", "tls", "ca.crt"));
 

@@ -32,9 +32,9 @@ public class Org2Settings {
     // Path to crypto materials.
     private static final Path cryptoPath = Paths.get("/home/hamid/Documents/fabric-samples", "test-network", "organizations", "peerOrganizations", "org2.example.com");
     // Path to user certificate.
-    private static final Path certPath = cryptoPath.resolve(Paths.get("users", "User1@org2.example.com", "msp", "signcerts", "cert.pem"));
+    private static final Path certPath = cryptoPath.resolve(Paths.get("users", "Trainer1@org2.example.com", "msp", "signcerts", "cert.pem"));
     // Path to user private key directory.
-    private static final Path keyDirPath = cryptoPath.resolve(Paths.get("users", "User1@org2.example.com", "msp", "keystore"));
+    private static final Path keyDirPath = cryptoPath.resolve(Paths.get("users", "Trainer1@org2.example.com", "msp", "keystore"));
     // Path to peer tls certificate.
     private static final Path tlsCertPath = cryptoPath.resolve(Paths.get("peers", "peer0.org2.example.com", "tls", "ca.crt"));
 
@@ -77,7 +77,6 @@ public class Org2Settings {
     private static ManagedChannel newGrpcConnection() throws IOException, CertificateException {
         var tlsCertReader = Files.newBufferedReader(tlsCertPath);
         var tlsCert = Identities.readX509Certificate(tlsCertReader);
-
         return NettyChannelBuilder.forTarget(peerEndpoint)
                 .sslContext(GrpcSslContexts.forClient().trustManager(tlsCert).build())
                 .overrideAuthority(overrideAuth)
