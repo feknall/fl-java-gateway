@@ -5,13 +5,22 @@ import org.hyperledger.fabric.client.Contract;
 import org.hyperledger.fabric.client.GatewayException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class BlockchainBl {
 
-    private final Contract contract;
+    private final Contract org1Contract;
+    private final Contract org2Contract;
 
-    public BlockchainBl(Contract contract) {
-        this.contract = contract;
+    private final Contract contract;
+    public BlockchainBl(Contract org1Contract, Contract org2Contract) {
+        this.org1Contract = org1Contract;
+        this.org2Contract = org2Contract;
+
+        // Either org1Contract or org2Contract should be fine
+        this.contract = org2Contract;
     }
 
     public byte[] initLedger() {
@@ -47,9 +56,17 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] addModelSecret(String modelId, String round, String weights) {
+    public List<byte[]> addModelSecret(String modelId, String round, String weights1, String weights2) {
         try {
-            return contract.submitTransaction("AddModelSecret", modelId, round, weights);
+            List<byte[]> list = new ArrayList<>();
+
+            byte[] resp1 = org1Contract.submitTransaction("AddModelSecret", modelId, round, weights1);
+            list.add(resp1);
+
+            byte[] resp2 = org2Contract.submitTransaction("AddModelSecret", modelId, round, weights2);
+            list.add(resp2);
+
+            return list;
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -95,21 +112,41 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] getRoleInCertificate() {
+    public List<byte[]> getPersonalInfo() {
         try {
-            return contract.evaluateTransaction("GetRoleInCertificate");
+            List<byte[]> list = new ArrayList<>();
+
+            byte[] resp1 = org1Contract.evaluateTransaction("GetPersonalInfo");
+            list.add(resp1);
+
+            byte[] resp2 = org2Contract.evaluateTransaction("GetPersonalInfo");
+            list.add(resp2);
+
+            return list;
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void listen() {
-
-    }
-
     public byte[] getTrainedModel(String modelId) {
         try {
             return contract.evaluateTransaction("GetTrainedModel", modelId);
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] checkInTrainer() {
+        try {
+            return contract.submitTransaction("CheckInTrainer");
+        } catch (GatewayException | CommitException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] getCheckInInfo() {
+        try {
+            return contract.evaluateTransaction("GetCheckInInfo");
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }

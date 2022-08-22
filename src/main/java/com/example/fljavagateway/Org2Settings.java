@@ -13,7 +13,6 @@ import org.hyperledger.fabric.client.identity.Signers;
 import org.hyperledger.fabric.client.identity.X509Identity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,27 +23,26 @@ import java.security.cert.CertificateException;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-public class Settings {
+public class Org2Settings {
 
-    private static final String mspID = "Org1MSP";
+    private static final String mspID = "Org2MSP";
     private static final String channelName = "mychannel";
     public static final String chaincodeName = "basic";
 
     // Path to crypto materials.
-    private static final Path cryptoPath = Paths.get("/home/hamid/Documents/fabric-samples", "test-network", "organizations", "peerOrganizations", "org1.example.com");
+    private static final Path cryptoPath = Paths.get("/home/hamid/Documents/fabric-samples", "test-network", "organizations", "peerOrganizations", "org2.example.com");
     // Path to user certificate.
-    private static final Path certPath = cryptoPath.resolve(Paths.get("users", "User1@org1.example.com", "msp", "signcerts", "cert.pem"));
+    private static final Path certPath = cryptoPath.resolve(Paths.get("users", "User1@org2.example.com", "msp", "signcerts", "cert.pem"));
     // Path to user private key directory.
-    private static final Path keyDirPath = cryptoPath.resolve(Paths.get("users", "User1@org1.example.com", "msp", "keystore"));
+    private static final Path keyDirPath = cryptoPath.resolve(Paths.get("users", "User1@org2.example.com", "msp", "keystore"));
     // Path to peer tls certificate.
-    private static final Path tlsCertPath = cryptoPath.resolve(Paths.get("peers", "peer0.org1.example.com", "tls", "ca.crt"));
+    private static final Path tlsCertPath = cryptoPath.resolve(Paths.get("peers", "peer0.org2.example.com", "tls", "ca.crt"));
 
-    // Gateway peer end point.
-    private static final String peerEndpoint = "localhost:7051";
-    private static final String overrideAuth = "peer0.org1.example.com";
+    private static final String peerEndpoint = "localhost:9051";
+    private static final String overrideAuth = "peer0.org2.example.com";
 
     @Bean
-    public Gateway gateway() throws CertificateException, IOException, InvalidKeyException {
+    public Gateway org2Gateway() throws CertificateException, IOException, InvalidKeyException {
         var channel = newGrpcConnection();
 
         var builder = Gateway.newInstance()
@@ -60,13 +58,13 @@ public class Settings {
     }
 
     @Bean
-    public Contract contract(Network network) {
-        return network.getContract(chaincodeName);
+    public Contract org2Contract(Network org2Network) {
+        return org2Network.getContract(chaincodeName);
     }
 
     @Bean
-    public Network network(Gateway gateway) {
-        return gateway.getNetwork(channelName);
+    public Network org2Network(Gateway org2Gateway) {
+        return org2Gateway.getNetwork(channelName);
     }
 
     private static Identity newIdentity() throws IOException, CertificateException {

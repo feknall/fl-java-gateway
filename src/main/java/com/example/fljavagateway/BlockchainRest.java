@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class BlockchainRest {
 
@@ -36,6 +38,11 @@ public class BlockchainRest {
                 modelMetadata.getTrainingRounds());
     }
 
+    @PostMapping("/admin/getCheckInInfo")
+    public byte[] getCheckInInfo() {
+        return blockchainBl.getCheckInInfo();
+    }
+
     @PostMapping("/leadAggregator/addEndRoundModel")
     public byte[] addEndRoundModel(EndRoundModel endRoundModel) {
         return blockchainBl.addEndRoundModel(endRoundModel.getModelId(),
@@ -60,19 +67,27 @@ public class BlockchainRest {
         return blockchainBl.readModelSecrets(modelId, round);
     }
 
-    @PostMapping("/user/addModelSecret")
-    public byte[] addModelSecret(ModelSecret modelSecret) {
-        return blockchainBl.addModelSecret(modelSecret.getModelId(), modelSecret.getRound(), modelSecret.getWeights());
+    @PostMapping("/trainer/checkInTrainer")
+    public byte[] addModelSecret() {
+        return blockchainBl.checkInTrainer();
     }
 
-    @GetMapping("/user/readEndRoundModel")
+    @PostMapping("/trainer/addModelSecret")
+    public List<byte[]> addModelSecret(ModelSecret modelSecret) {
+        return blockchainBl.addModelSecret(modelSecret.getModelId(),
+                modelSecret.getRound(),
+                modelSecret.getWeights1(),
+                modelSecret.getWeights2());
+    }
+
+    @GetMapping("/trainer/readEndRoundModel")
     public byte[] readEndRoundModel(@RequestParam String modelId, @RequestParam String round) {
         return blockchainBl.readEndRoundModel(modelId, round);
     }
 
-    @GetMapping("/general/getRoleInCertificate")
-    public byte[] getRoleInCertificate() {
-        return blockchainBl.getRoleInCertificate();
+    @GetMapping("/general/getPersonalInfo")
+    public List<byte[]> getPersonalInfo() {
+        return blockchainBl.getPersonalInfo();
     }
 
     @GetMapping("/general/getTrainedModel")

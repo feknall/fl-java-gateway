@@ -25,15 +25,15 @@ public class EventListener {
     private final Network network;
     private final WebSocketEventProcessor webSocketEventProcessor;
 
-    public EventListener(Network network, WebSocketEventProcessor webSocketEventProcessor) {
-        this.network = network;
+    public EventListener(Network org1Network, WebSocketEventProcessor webSocketEventProcessor) {
+        this.network = org1Network;
         this.webSocketEventProcessor = webSocketEventProcessor;
     }
 
     @Bean
     public CloseableIterator<ChaincodeEvent> listen() {
         logger.info("Start listening for events...");
-        var eventIter = network.getChaincodeEvents(Settings.chaincodeName);
+        var eventIter = network.getChaincodeEvents(Org1Settings.chaincodeName);
         CompletableFuture.runAsync(() -> {
             eventIter.forEachRemaining(event -> {
                 CompletableFuture.runAsync(() -> {
