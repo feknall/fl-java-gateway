@@ -1,7 +1,13 @@
 package com.example.fljavagateway;
 
+import org.hyperledger.fabric.client.CommitException;
+import org.hyperledger.fabric.client.CommitStatusException;
+import org.hyperledger.fabric.client.EndorseException;
+import org.hyperledger.fabric.client.SubmitException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,11 +37,11 @@ public class BlockchainRest {
     }
 
     @PostMapping("/admin/createModelMetadata")
-    public byte[] createModelMetadata(@RequestBody ModelMetadata modelMetadata) {
-        return blockchainBl.createModelMetadata(modelMetadata.getModelId(),
-                modelMetadata.getName(), modelMetadata.getClientsPerRound(),
-                modelMetadata.getSecretsPerClient(),
-                modelMetadata.getTrainingRounds());
+    public ResponseEntity<Object> createModelMetadata(@RequestBody ModelMetadata modelMetadata) {
+        return blockchainBl.createModelMetadata(modelMetadata.modelId(),
+                modelMetadata.name(), modelMetadata.clientsPerRound(),
+                modelMetadata.secretsPerClient(),
+                modelMetadata.trainingRounds());
     }
 
     @PostMapping("/admin/getCheckInInfo")
@@ -44,7 +50,7 @@ public class BlockchainRest {
     }
 
     @PostMapping("/leadAggregator/addEndRoundModel")
-    public byte[] addEndRoundModel(EndRoundModel endRoundModel) {
+    public byte[] addEndRoundModel(@RequestBody EndRoundModel endRoundModel) {
         return blockchainBl.addEndRoundModel(endRoundModel.getModelId(),
                 endRoundModel.getRound(),
                 endRoundModel.getWeights());
@@ -56,7 +62,7 @@ public class BlockchainRest {
     }
 
     @PostMapping("/aggregator/addAggregatedSecret")
-    public byte[] addAggregatedSecret(AggregatedSecret aggregatedSecret) {
+    public byte[] addAggregatedSecret(@RequestBody AggregatedSecret aggregatedSecret) {
         return blockchainBl.addAggregatedSecret(aggregatedSecret.getModelId(),
                 aggregatedSecret.getRound(),
                 aggregatedSecret.getWeights());
@@ -73,11 +79,11 @@ public class BlockchainRest {
     }
 
     @PostMapping("/trainer/addModelSecret")
-    public List<byte[]> addModelSecret(ModelSecret modelSecret) {
-        return blockchainBl.addModelSecret(modelSecret.getModelId(),
-                modelSecret.getRound(),
-                modelSecret.getWeights1(),
-                modelSecret.getWeights2());
+    public List<byte[]> addModelSecret(@RequestBody ModelSecret modelSecret) {
+        return blockchainBl.addModelSecret(modelSecret.modelId(),
+                modelSecret.round(),
+                modelSecret.weights1(),
+                modelSecret.weights2());
     }
 
     @GetMapping("/trainer/readEndRoundModel")
@@ -95,4 +101,23 @@ public class BlockchainRest {
         return blockchainBl.getTrainedModel(modelId);
     }
 
+    @GetMapping("/general/checkHasFlAdminAttribute")
+    public byte[] hasFlAdminAttribute() {
+        return blockchainBl.checkHasFlAdminAttribute();
+    }
+
+    @GetMapping("/general/checkHasAggregatorAttribute")
+    public byte[] hasAggregatorAttribute() {
+        return blockchainBl.checkHasAggregatorAttribute();
+    }
+
+    @GetMapping("/general/checkHasLeadAggregatorAttribute")
+    public byte[] hasLeadAggregatorAttribute() {
+        return blockchainBl.checkHasLeadAggregatorAttribute();
+    }
+
+    @GetMapping("/general/checkHasTrainerAttribute")
+    public byte[] hasTrainerAttribute() {
+        return blockchainBl.checkHasTrainerAttribute();
+    }
 }

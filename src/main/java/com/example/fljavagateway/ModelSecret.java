@@ -7,12 +7,7 @@ package com.example.fljavagateway;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 
-public final class ModelSecret {
-
-    private final String modelId;
-    private final String round;
-    private final String weights1;
-    private final String weights2;
+public record ModelSecret(String modelId, String round, String weights1, String weights2) {
 
     public ModelSecret(@JsonProperty("modelId") final String modelId,
                        @JsonProperty("round") final String round,
@@ -22,23 +17,6 @@ public final class ModelSecret {
         this.round = round;
         this.weights1 = weights1;
         this.weights2 = weights2;
-    }
-
-    public String getModelId() {
-        return modelId;
-    }
-
-
-    public String getRound() {
-        return round;
-    }
-
-    public String getWeights1() {
-        return weights1;
-    }
-
-    public String getWeights2() {
-        return weights2;
     }
 
 

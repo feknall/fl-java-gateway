@@ -7,16 +7,9 @@ package com.example.fljavagateway;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 
-public final class ModelMetadata {
-
-    private final String modelId;
-    private final String name;
-
-    private final String clientsPerRound;
-    private final String secretsPerClient;
-    private final String status;
-    private final String trainingRounds;
-
+public record ModelMetadata(String modelId, String name,
+                            String clientsPerRound, String secretsPerClient, String status,
+                            String trainingRounds) {
 
     public ModelMetadata(@JsonProperty("modelId") final String modelId,
                          @JsonProperty("name") final String name,
@@ -30,30 +23,6 @@ public final class ModelMetadata {
         this.secretsPerClient = secretsPerClient;
         this.status = status;
         this.trainingRounds = trainingRounds;
-    }
-
-    public String getModelId() {
-        return modelId;
-    }
-
-    public String getClientsPerRound() {
-        return clientsPerRound;
-    }
-
-    public String getSecretsPerClient() {
-        return secretsPerClient;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getTrainingRounds() {
-        return trainingRounds;
     }
 
     public String serialize() {

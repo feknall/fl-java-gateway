@@ -20,23 +20,26 @@ public final class Info {
 
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>bytes payload = 2;</code>
+     * @return The payload.
      */
     com.google.protobuf.ByteString getPayload();
   }
   /**
    * Protobuf type {@code com.example.fljavagateway.Event}
    */
-  public  static final class Event extends
+  public static final class Event extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:com.example.fljavagateway.Event)
       EventOrBuilder {
@@ -48,6 +51,13 @@ public final class Info {
     private Event() {
       name_ = "";
       payload_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Event();
     }
 
     @java.lang.Override
@@ -63,7 +73,6 @@ public final class Info {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -86,7 +95,7 @@ public final class Info {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -96,6 +105,8 @@ public final class Info {
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
@@ -121,7 +132,9 @@ public final class Info {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -136,7 +149,9 @@ public final class Info {
     }
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -155,7 +170,9 @@ public final class Info {
     private com.google.protobuf.ByteString payload_;
     /**
      * <code>bytes payload = 2;</code>
+     * @return The payload.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPayload() {
       return payload_;
     }
@@ -174,7 +191,7 @@ public final class Info {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
       if (!payload_.isEmpty()) {
@@ -189,7 +206,7 @@ public final class Info {
       if (size != -1) return size;
 
       size = 0;
-      if (!getNameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
       if (!payload_.isEmpty()) {
@@ -211,13 +228,12 @@ public final class Info {
       }
       com.example.fljavagateway.Info.Event other = (com.example.fljavagateway.Info.Event) obj;
 
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getPayload()
-          .equals(other.getPayload());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getPayload()
+          .equals(other.getPayload())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -402,35 +418,35 @@ public final class Info {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -483,6 +499,7 @@ public final class Info {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 1;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -498,6 +515,7 @@ public final class Info {
       }
       /**
        * <code>string name = 1;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -514,6 +532,8 @@ public final class Info {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -527,6 +547,7 @@ public final class Info {
       }
       /**
        * <code>string name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -536,6 +557,8 @@ public final class Info {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -552,12 +575,16 @@ public final class Info {
       private com.google.protobuf.ByteString payload_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes payload = 2;</code>
+       * @return The payload.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPayload() {
         return payload_;
       }
       /**
        * <code>bytes payload = 2;</code>
+       * @param value The payload to set.
+       * @return This builder for chaining.
        */
       public Builder setPayload(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -570,6 +597,7 @@ public final class Info {
       }
       /**
        * <code>bytes payload = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPayload() {
         
@@ -580,7 +608,7 @@ public final class Info {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -630,11 +658,884 @@ public final class Info {
 
   }
 
+  public interface ModelSecretOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.example.fljavagateway.ModelSecret)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string modelId = 1;</code>
+     * @return The modelId.
+     */
+    java.lang.String getModelId();
+    /**
+     * <code>string modelId = 1;</code>
+     * @return The bytes for modelId.
+     */
+    com.google.protobuf.ByteString
+        getModelIdBytes();
+
+    /**
+     * <code>string round = 2;</code>
+     * @return The round.
+     */
+    java.lang.String getRound();
+    /**
+     * <code>string round = 2;</code>
+     * @return The bytes for round.
+     */
+    com.google.protobuf.ByteString
+        getRoundBytes();
+
+    /**
+     * <code>bytes weights1 = 3;</code>
+     * @return The weights1.
+     */
+    com.google.protobuf.ByteString getWeights1();
+
+    /**
+     * <code>bytes weights2 = 4;</code>
+     * @return The weights2.
+     */
+    com.google.protobuf.ByteString getWeights2();
+  }
+  /**
+   * Protobuf type {@code com.example.fljavagateway.ModelSecret}
+   */
+  public static final class ModelSecret extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.example.fljavagateway.ModelSecret)
+      ModelSecretOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ModelSecret.newBuilder() to construct.
+    private ModelSecret(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ModelSecret() {
+      modelId_ = "";
+      round_ = "";
+      weights1_ = com.google.protobuf.ByteString.EMPTY;
+      weights2_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ModelSecret();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ModelSecret(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              modelId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              round_ = s;
+              break;
+            }
+            case 26: {
+
+              weights1_ = input.readBytes();
+              break;
+            }
+            case 34: {
+
+              weights2_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.fljavagateway.Info.internal_static_com_example_fljavagateway_ModelSecret_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.fljavagateway.Info.internal_static_com_example_fljavagateway_ModelSecret_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.fljavagateway.Info.ModelSecret.class, com.example.fljavagateway.Info.ModelSecret.Builder.class);
+    }
+
+    public static final int MODELID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object modelId_;
+    /**
+     * <code>string modelId = 1;</code>
+     * @return The modelId.
+     */
+    @java.lang.Override
+    public java.lang.String getModelId() {
+      java.lang.Object ref = modelId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        modelId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string modelId = 1;</code>
+     * @return The bytes for modelId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getModelIdBytes() {
+      java.lang.Object ref = modelId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        modelId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ROUND_FIELD_NUMBER = 2;
+    private volatile java.lang.Object round_;
+    /**
+     * <code>string round = 2;</code>
+     * @return The round.
+     */
+    @java.lang.Override
+    public java.lang.String getRound() {
+      java.lang.Object ref = round_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        round_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string round = 2;</code>
+     * @return The bytes for round.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRoundBytes() {
+      java.lang.Object ref = round_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        round_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int WEIGHTS1_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString weights1_;
+    /**
+     * <code>bytes weights1 = 3;</code>
+     * @return The weights1.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getWeights1() {
+      return weights1_;
+    }
+
+    public static final int WEIGHTS2_FIELD_NUMBER = 4;
+    private com.google.protobuf.ByteString weights2_;
+    /**
+     * <code>bytes weights2 = 4;</code>
+     * @return The weights2.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getWeights2() {
+      return weights2_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(modelId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, modelId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(round_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, round_);
+      }
+      if (!weights1_.isEmpty()) {
+        output.writeBytes(3, weights1_);
+      }
+      if (!weights2_.isEmpty()) {
+        output.writeBytes(4, weights2_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(modelId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, modelId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(round_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, round_);
+      }
+      if (!weights1_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, weights1_);
+      }
+      if (!weights2_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, weights2_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.example.fljavagateway.Info.ModelSecret)) {
+        return super.equals(obj);
+      }
+      com.example.fljavagateway.Info.ModelSecret other = (com.example.fljavagateway.Info.ModelSecret) obj;
+
+      if (!getModelId()
+          .equals(other.getModelId())) return false;
+      if (!getRound()
+          .equals(other.getRound())) return false;
+      if (!getWeights1()
+          .equals(other.getWeights1())) return false;
+      if (!getWeights2()
+          .equals(other.getWeights2())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MODELID_FIELD_NUMBER;
+      hash = (53 * hash) + getModelId().hashCode();
+      hash = (37 * hash) + ROUND_FIELD_NUMBER;
+      hash = (53 * hash) + getRound().hashCode();
+      hash = (37 * hash) + WEIGHTS1_FIELD_NUMBER;
+      hash = (53 * hash) + getWeights1().hashCode();
+      hash = (37 * hash) + WEIGHTS2_FIELD_NUMBER;
+      hash = (53 * hash) + getWeights2().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.fljavagateway.Info.ModelSecret parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.example.fljavagateway.Info.ModelSecret prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.example.fljavagateway.ModelSecret}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.example.fljavagateway.ModelSecret)
+        com.example.fljavagateway.Info.ModelSecretOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.fljavagateway.Info.internal_static_com_example_fljavagateway_ModelSecret_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.fljavagateway.Info.internal_static_com_example_fljavagateway_ModelSecret_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.fljavagateway.Info.ModelSecret.class, com.example.fljavagateway.Info.ModelSecret.Builder.class);
+      }
+
+      // Construct using com.example.fljavagateway.Info.ModelSecret.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        modelId_ = "";
+
+        round_ = "";
+
+        weights1_ = com.google.protobuf.ByteString.EMPTY;
+
+        weights2_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.fljavagateway.Info.internal_static_com_example_fljavagateway_ModelSecret_descriptor;
+      }
+
+      @java.lang.Override
+      public com.example.fljavagateway.Info.ModelSecret getDefaultInstanceForType() {
+        return com.example.fljavagateway.Info.ModelSecret.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.example.fljavagateway.Info.ModelSecret build() {
+        com.example.fljavagateway.Info.ModelSecret result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.example.fljavagateway.Info.ModelSecret buildPartial() {
+        com.example.fljavagateway.Info.ModelSecret result = new com.example.fljavagateway.Info.ModelSecret(this);
+        result.modelId_ = modelId_;
+        result.round_ = round_;
+        result.weights1_ = weights1_;
+        result.weights2_ = weights2_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.fljavagateway.Info.ModelSecret) {
+          return mergeFrom((com.example.fljavagateway.Info.ModelSecret)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.fljavagateway.Info.ModelSecret other) {
+        if (other == com.example.fljavagateway.Info.ModelSecret.getDefaultInstance()) return this;
+        if (!other.getModelId().isEmpty()) {
+          modelId_ = other.modelId_;
+          onChanged();
+        }
+        if (!other.getRound().isEmpty()) {
+          round_ = other.round_;
+          onChanged();
+        }
+        if (other.getWeights1() != com.google.protobuf.ByteString.EMPTY) {
+          setWeights1(other.getWeights1());
+        }
+        if (other.getWeights2() != com.google.protobuf.ByteString.EMPTY) {
+          setWeights2(other.getWeights2());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.fljavagateway.Info.ModelSecret parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.fljavagateway.Info.ModelSecret) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object modelId_ = "";
+      /**
+       * <code>string modelId = 1;</code>
+       * @return The modelId.
+       */
+      public java.lang.String getModelId() {
+        java.lang.Object ref = modelId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          modelId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string modelId = 1;</code>
+       * @return The bytes for modelId.
+       */
+      public com.google.protobuf.ByteString
+          getModelIdBytes() {
+        java.lang.Object ref = modelId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          modelId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string modelId = 1;</code>
+       * @param value The modelId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setModelId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        modelId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string modelId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearModelId() {
+        
+        modelId_ = getDefaultInstance().getModelId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string modelId = 1;</code>
+       * @param value The bytes for modelId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setModelIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        modelId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object round_ = "";
+      /**
+       * <code>string round = 2;</code>
+       * @return The round.
+       */
+      public java.lang.String getRound() {
+        java.lang.Object ref = round_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          round_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string round = 2;</code>
+       * @return The bytes for round.
+       */
+      public com.google.protobuf.ByteString
+          getRoundBytes() {
+        java.lang.Object ref = round_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          round_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string round = 2;</code>
+       * @param value The round to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRound(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        round_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string round = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRound() {
+        
+        round_ = getDefaultInstance().getRound();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string round = 2;</code>
+       * @param value The bytes for round to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRoundBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        round_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString weights1_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes weights1 = 3;</code>
+       * @return The weights1.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getWeights1() {
+        return weights1_;
+      }
+      /**
+       * <code>bytes weights1 = 3;</code>
+       * @param value The weights1 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeights1(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        weights1_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes weights1 = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWeights1() {
+        
+        weights1_ = getDefaultInstance().getWeights1();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString weights2_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes weights2 = 4;</code>
+       * @return The weights2.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getWeights2() {
+        return weights2_;
+      }
+      /**
+       * <code>bytes weights2 = 4;</code>
+       * @param value The weights2 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeights2(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        weights2_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes weights2 = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWeights2() {
+        
+        weights2_ = getDefaultInstance().getWeights2();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.example.fljavagateway.ModelSecret)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.example.fljavagateway.ModelSecret)
+    private static final com.example.fljavagateway.Info.ModelSecret DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.example.fljavagateway.Info.ModelSecret();
+    }
+
+    public static com.example.fljavagateway.Info.ModelSecret getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ModelSecret>
+        PARSER = new com.google.protobuf.AbstractParser<ModelSecret>() {
+      @java.lang.Override
+      public ModelSecret parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ModelSecret(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ModelSecret> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ModelSecret> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.example.fljavagateway.Info.ModelSecret getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_fljavagateway_Event_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_fljavagateway_Event_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_example_fljavagateway_ModelSecret_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_example_fljavagateway_ModelSecret_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -645,27 +1546,27 @@ public final class Info {
   static {
     java.lang.String[] descriptorData = {
       "\n\ninfo.proto\022\031com.example.fljavagateway\"" +
-      "&\n\005Event\022\014\n\004name\030\001 \001(\t\022\017\n\007payload\030\002 \001(\014b" +
-      "\006proto3"
+      "&\n\005Event\022\014\n\004name\030\001 \001(\t\022\017\n\007payload\030\002 \001(\014\"" +
+      "Q\n\013ModelSecret\022\017\n\007modelId\030\001 \001(\t\022\r\n\005round" +
+      "\030\002 \001(\t\022\020\n\010weights1\030\003 \001(\014\022\020\n\010weights2\030\004 \001" +
+      "(\014b\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
     internal_static_com_example_fljavagateway_Event_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_com_example_fljavagateway_Event_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_fljavagateway_Event_descriptor,
         new java.lang.String[] { "Name", "Payload", });
+    internal_static_com_example_fljavagateway_ModelSecret_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_com_example_fljavagateway_ModelSecret_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_example_fljavagateway_ModelSecret_descriptor,
+        new java.lang.String[] { "ModelId", "Round", "Weights1", "Weights2", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
