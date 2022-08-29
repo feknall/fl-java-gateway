@@ -1,12 +1,7 @@
 package com.example.fljavagateway;
 
-import org.hyperledger.fabric.client.CommitException;
-import org.hyperledger.fabric.client.CommitStatusException;
-import org.hyperledger.fabric.client.EndorseException;
-import org.hyperledger.fabric.client.SubmitException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +39,7 @@ public class BlockchainRest {
                 modelMetadata.trainingRounds());
     }
 
-    @PostMapping("/admin/getCheckInInfo")
+    @GetMapping("/admin/getCheckInInfo")
     public byte[] getCheckInInfo() {
         return blockchainBl.getCheckInInfo();
     }
@@ -73,15 +68,19 @@ public class BlockchainRest {
         return blockchainBl.readModelSecrets(modelId, round);
     }
 
+    @GetMapping("/aggregator/readModelSecretsForCurrentRound")
+    public byte[] readModelSecretsForCurrentRound(@RequestParam String modelId) {
+        return blockchainBl.readModelSecretsForCurrentRound(modelId);
+    }
+
     @PostMapping("/trainer/checkInTrainer")
-    public byte[] addModelSecret() {
+    public byte[] checkInTrainer() {
         return blockchainBl.checkInTrainer();
     }
 
     @PostMapping("/trainer/addModelSecret")
     public List<byte[]> addModelSecret(@RequestBody ModelSecret modelSecret) {
         return blockchainBl.addModelSecret(modelSecret.modelId(),
-                modelSecret.round(),
                 modelSecret.weights1(),
                 modelSecret.weights2());
     }
@@ -119,5 +118,15 @@ public class BlockchainRest {
     @GetMapping("/general/checkHasTrainerAttribute")
     public byte[] hasTrainerAttribute() {
         return blockchainBl.checkHasTrainerAttribute();
+    }
+
+    @GetMapping("/general/getSelectedTrainersForCurrentRound")
+    public byte[] getSelectedTrainersForCurrentRound() {
+        return blockchainBl.getSelectedTrainersForCurrentRound();
+    }
+
+    @GetMapping("/general/checkIAmSelectedForRound")
+    public byte[] checkIAmSelectedForRound() {
+        return blockchainBl.checkIAmSelectedForRound();
     }
 }

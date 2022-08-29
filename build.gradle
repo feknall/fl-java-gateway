@@ -9,6 +9,10 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '18'
 
+springBoot {
+    mainClass = 'com.example.fljavagateway.FlJavaGatewayApplication'
+}
+
 repositories {
     mavenCentral()
 }

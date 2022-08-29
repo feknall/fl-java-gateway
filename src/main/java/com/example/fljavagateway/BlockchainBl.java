@@ -5,6 +5,7 @@ import org.hyperledger.fabric.client.Contract;
 import org.hyperledger.fabric.client.EndorseException;
 import org.hyperledger.fabric.client.GatewayException;
 import org.hyperledger.fabric.protos.gateway.ErrorDetail;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,20 +19,40 @@ public class BlockchainBl {
 
     private final Contract org1Contract;
     private final Contract org2Contract;
+    private final Contract defaultContract;
 
-    private final Contract contract;
+    private final Contract aggregatorContract;
+
+    @Value("${fl.aggregator.organization}")
+    private String aggregatorOrganization;
+
+    @Value("{fl.default.organization}")
+    private String defaultOrganization;
+
+    private static final String ORG1 = "org1";
+    private static final String ORG2 = "org2";
 
     public BlockchainBl(Contract org1Contract, Contract org2Contract) {
         this.org1Contract = org1Contract;
         this.org2Contract = org2Contract;
 
+        if (ORG1.equals(defaultOrganization)) {
+            this.defaultContract = org1Contract;
+        } else {
+            this.defaultContract = org2Contract;
+        }
+
         // Either org1Contract or org2Contract should be fine
-        this.contract = org2Contract;
+        if (ORG1.equals(aggregatorOrganization)) {
+            this.aggregatorContract = org1Contract;
+        } else {
+            this.aggregatorContract = org2Contract;
+        }
     }
 
     public byte[] initLedger() {
         try {
-            return contract.submitTransaction("initLedger");
+            return defaultContract.submitTransaction("initLedger");
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +60,7 @@ public class BlockchainBl {
 
     public byte[] startTraining(String modelId) {
         try {
-            return contract.submitTransaction("startTraining", modelId);
+            return defaultContract.submitTransaction("startTraining", modelId);
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +72,7 @@ public class BlockchainBl {
                                                       String secretsPerClient,
                                                       String trainingRounds) {
         try {
-            byte[] bytes = contract.submitTransaction("createModelMetadata",
+            byte[] bytes = defaultContract.submitTransaction("createModelMetadata",
                     modelId,
                     modelName,
                     clientsPerRound,
@@ -66,14 +87,14 @@ public class BlockchainBl {
         }
     }
 
-    public List<byte[]> addModelSecret(String modelId, String round, String weights1, String weights2) {
+    public List<byte[]> addModelSecret(String modelId, String weights1, String weights2) {
         try {
             List<byte[]> list = new ArrayList<>();
 
-            byte[] resp1 = org1Contract.submitTransaction("addModelSecret", modelId, round, weights1);
+            byte[] resp1 = org1Contract.submitTransaction("addModelSecret", modelId, weights1);
             list.add(resp1);
 
-            byte[] resp2 = org2Contract.submitTransaction("addModelSecret", modelId, round, weights2);
+            byte[] resp2 = org2Contract.submitTransaction("addModelSecret", modelId, weights2);
             list.add(resp2);
 
             return list;
@@ -84,7 +105,7 @@ public class BlockchainBl {
 
     public byte[] addEndRoundModel(String modelId, String round, String weights) {
         try {
-            return contract.submitTransaction("addEndRoundModel", modelId, round, weights);
+            return defaultContract.submitTransaction("addEndRoundModel", modelId, round, weights);
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -92,7 +113,7 @@ public class BlockchainBl {
 
     public byte[] addAggregatedSecret(String modelId, String round, String weights) {
         try {
-            return contract.submitTransaction("addAggregatedSecret", modelId, round, weights);
+            return aggregatorContract.submitTransaction("addAggregatedSecret", modelId, round, weights);
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -100,7 +121,7 @@ public class BlockchainBl {
 
     public byte[] readAggregatedModelUpdate(String modelId, String round) {
         try {
-            return contract.evaluateTransaction("readAggregatedModelUpdate", modelId, round);
+            return defaultContract.evaluateTransaction("readAggregatedModelUpdate", modelId, round);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -108,15 +129,24 @@ public class BlockchainBl {
 
     public byte[] readModelSecrets(String modelId, String round) {
         try {
-            return contract.evaluateTransaction("readModelSecrets", modelId, round);
+            return aggregatorContract.evaluateTransaction("readModelSecrets", modelId, round);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public byte[] readModelSecretsForCurrentRound(String modelId) {
+        try {
+            return aggregatorContract.evaluateTransaction("readModelSecretsForCurrentRound", modelId);
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public byte[] readEndRoundModel(String modelId, String round) {
         try {
-            return contract.evaluateTransaction("readEndRoundModel", modelId, round);
+            return defaultContract.evaluateTransaction("readEndRoundModel", modelId, round);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -140,7 +170,7 @@ public class BlockchainBl {
 
     public byte[] getTrainedModel(String modelId) {
         try {
-            return contract.evaluateTransaction("getTrainedModel", modelId);
+            return defaultContract.evaluateTransaction("getTrainedModel", modelId);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -148,7 +178,7 @@ public class BlockchainBl {
 
     public byte[] checkInTrainer() {
         try {
-            return contract.submitTransaction("checkInTrainer");
+            return defaultContract.submitTransaction("checkInTrainer");
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -156,7 +186,7 @@ public class BlockchainBl {
 
     public byte[] getCheckInInfo() {
         try {
-            return contract.evaluateTransaction("getCheckInInfo");
+            return defaultContract.evaluateTransaction("getCheckInInfo");
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -164,7 +194,7 @@ public class BlockchainBl {
 
     public byte[] checkHasFlAdminAttribute() {
         try {
-            return contract.evaluateTransaction("checkHasFlAdminAttribute");
+            return defaultContract.evaluateTransaction("checkHasFlAdminAttribute");
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -172,7 +202,7 @@ public class BlockchainBl {
 
     public byte[] checkHasLeadAggregatorAttribute() {
         try {
-            return contract.evaluateTransaction("checkHasLeadAggregatorAttribute");
+            return defaultContract.evaluateTransaction("checkHasLeadAggregatorAttribute");
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -180,7 +210,7 @@ public class BlockchainBl {
 
     public byte[] checkHasAggregatorAttribute() {
         try {
-            return contract.evaluateTransaction("checkHasAggregatorAttribute");
+            return defaultContract.evaluateTransaction("checkHasAggregatorAttribute");
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -188,7 +218,23 @@ public class BlockchainBl {
 
     public byte[] checkHasTrainerAttribute() {
         try {
-            return contract.evaluateTransaction("checkHasTrainerAttribute");
+            return defaultContract.evaluateTransaction("checkHasTrainerAttribute");
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] getSelectedTrainersForCurrentRound() {
+        try {
+            return defaultContract.evaluateTransaction("getSelectedTrainersForCurrentRound");
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] checkIAmSelectedForRound() {
+        try {
+            return defaultContract.evaluateTransaction("checkIAmSelectedForRound");
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
