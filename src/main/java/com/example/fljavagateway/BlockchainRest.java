@@ -58,9 +58,18 @@ public class BlockchainRest {
 
     @PostMapping("/aggregator/addAggregatedSecret")
     public byte[] addAggregatedSecret(@RequestBody AggregatedSecret aggregatedSecret) {
-        return blockchainBl.addAggregatedSecret(aggregatedSecret.getModelId(),
-                aggregatedSecret.getRound(),
-                aggregatedSecret.getWeights());
+
+        return blockchainBl.addAggregatedSecret(aggregatedSecret.modelId(), aggregatedSecret.weights());
+    }
+
+    @GetMapping("/aggregator/checkAllSecretsReceived")
+    public byte[] checkAllSecretsReceived(@RequestParam String modelId) {
+        return blockchainBl.checkAllSecretsReceived(modelId);
+    }
+
+    @GetMapping("/aggregator/getNumberOfReceivedSecrets")
+    public byte[] getNumberOfReceivedSecrets(@RequestParam String modelId) {
+        return blockchainBl.getNumberOfReceivedSecrets(modelId);
     }
 
     @GetMapping("/aggregator/readModelSecrets")

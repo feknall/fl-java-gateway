@@ -5,6 +5,8 @@ import org.hyperledger.fabric.client.Contract;
 import org.hyperledger.fabric.client.EndorseException;
 import org.hyperledger.fabric.client.GatewayException;
 import org.hyperledger.fabric.protos.gateway.ErrorDetail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,36 +18,45 @@ import java.util.stream.Collectors;
 
 @Service
 public class BlockchainBl {
-
+    private final Logger logger = LoggerFactory.getLogger(BlockchainBl.class);
     private final Contract org1Contract;
     private final Contract org2Contract;
     private final Contract defaultContract;
 
     private final Contract aggregatorContract;
 
-    @Value("${fl.aggregator.organization}")
+//    @Value("${fl.aggregator.organization}")
     private String aggregatorOrganization;
 
-    @Value("{fl.default.organization}")
+//    @Value("{fl.default.organization}")
     private String defaultOrganization;
 
     private static final String ORG1 = "org1";
     private static final String ORG2 = "org2";
 
-    public BlockchainBl(Contract org1Contract, Contract org2Contract) {
+    public BlockchainBl(@Value("{fl.default.organization}") String defaultOrganization,
+                        @Value("${fl.aggregator.organization}") String aggregatorOrganization,
+                        Contract org1Contract, Contract org2Contract) {
+        this.aggregatorOrganization = aggregatorOrganization;
+        this.defaultOrganization = defaultOrganization;
         this.org1Contract = org1Contract;
         this.org2Contract = org2Contract;
 
         if (ORG1.equals(defaultOrganization)) {
+            logger.info("Using org1Contract for defaultContract");
             this.defaultContract = org1Contract;
         } else {
+            logger.info("Using org2Contract for defaultContract");
             this.defaultContract = org2Contract;
         }
 
         // Either org1Contract or org2Contract should be fine
+        logger.info("--fl.aggregator.organization=" + aggregatorOrganization);
         if (ORG1.equals(aggregatorOrganization)) {
+            logger.info("Using org1Contract for aggregatorContract");
             this.aggregatorContract = org1Contract;
         } else {
+            logger.info("Using org2Contract for aggregatorContract");
             this.aggregatorContract = org2Contract;
         }
     }
@@ -111,9 +122,9 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] addAggregatedSecret(String modelId, String round, String weights) {
+    public byte[] addAggregatedSecret(String modelId, String weights) {
         try {
-            return aggregatorContract.submitTransaction("addAggregatedSecret", modelId, round, weights);
+            return aggregatorContract.submitTransaction("addAggregatedSecret", modelId, weights);
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -235,6 +246,22 @@ public class BlockchainBl {
     public byte[] checkIAmSelectedForRound() {
         try {
             return defaultContract.evaluateTransaction("checkIAmSelectedForRound");
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] checkAllSecretsReceived(String modelId) {
+        try {
+            return defaultContract.evaluateTransaction("checkAllSecretsReceived", modelId);
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] getNumberOfReceivedSecrets(String modelId) {
+        try {
+            return defaultContract.evaluateTransaction("getNumberOfReceivedSecrets", modelId);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
