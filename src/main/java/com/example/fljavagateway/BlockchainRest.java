@@ -47,7 +47,6 @@ public class BlockchainRest {
     @PostMapping("/leadAggregator/addEndRoundModel")
     public byte[] addEndRoundModel(@RequestBody EndRoundModel endRoundModel) {
         return blockchainBl.addEndRoundModel(endRoundModel.getModelId(),
-                endRoundModel.getRound(),
                 endRoundModel.getWeights());
     }
 
@@ -56,9 +55,23 @@ public class BlockchainRest {
         return blockchainBl.readAggregatedModelUpdate(modelId, round);
     }
 
+    @GetMapping("/leadAggregator/checkAllAggregatedSecretsReceived")
+    public byte[] checkAllAggregatedSecretsReceived(@RequestParam String modelId) {
+        return blockchainBl.checkAllAggregatedSecretsReceived(modelId);
+    }
+
+    @GetMapping("/leadAggregator/getNumberOfReceivedAggregatedSecrets")
+    public byte[] getNumberOfReceivedAggregatedSecrets(@RequestParam String modelId) {
+        return blockchainBl.getNumberOfReceivedAggregatedSecrets(modelId);
+    }
+
+    @GetMapping("/leadAggregator/getAggregatedSecretsForCurrentRound")
+    public byte[] getAggregatedSecretsForCurrentRound(@RequestParam String modelId) {
+        return blockchainBl.getAggregatedSecretsForCurrentRound(modelId);
+    }
+
     @PostMapping("/aggregator/addAggregatedSecret")
     public byte[] addAggregatedSecret(@RequestBody AggregatedSecret aggregatedSecret) {
-
         return blockchainBl.addAggregatedSecret(aggregatedSecret.modelId(), aggregatedSecret.weights());
     }
 

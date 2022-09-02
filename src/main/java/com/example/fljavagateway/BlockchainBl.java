@@ -25,20 +25,12 @@ public class BlockchainBl {
 
     private final Contract aggregatorContract;
 
-//    @Value("${fl.aggregator.organization}")
-    private String aggregatorOrganization;
-
-//    @Value("{fl.default.organization}")
-    private String defaultOrganization;
-
     private static final String ORG1 = "org1";
     private static final String ORG2 = "org2";
 
     public BlockchainBl(@Value("{fl.default.organization}") String defaultOrganization,
                         @Value("${fl.aggregator.organization}") String aggregatorOrganization,
                         Contract org1Contract, Contract org2Contract) {
-        this.aggregatorOrganization = aggregatorOrganization;
-        this.defaultOrganization = defaultOrganization;
         this.org1Contract = org1Contract;
         this.org2Contract = org2Contract;
 
@@ -114,9 +106,9 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] addEndRoundModel(String modelId, String round, String weights) {
+    public byte[] addEndRoundModel(String modelId, String weights) {
         try {
-            return defaultContract.submitTransaction("addEndRoundModel", modelId, round, weights);
+            return defaultContract.submitTransaction("addEndRoundModel", modelId, weights);
         } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
@@ -153,7 +145,6 @@ public class BlockchainBl {
             throw new RuntimeException(e);
         }
     }
-
 
     public byte[] readEndRoundModel(String modelId, String round) {
         try {
@@ -259,9 +250,33 @@ public class BlockchainBl {
         }
     }
 
+    public byte[] checkAllAggregatedSecretsReceived(String modelId) {
+        try {
+            return defaultContract.evaluateTransaction("checkAllAggregatedSecretsReceived", modelId);
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] getNumberOfReceivedAggregatedSecrets(String modelId) {
+        try {
+            return defaultContract.evaluateTransaction("getNumberOfReceivedAggregatedSecrets", modelId);
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public byte[] getNumberOfReceivedSecrets(String modelId) {
         try {
             return defaultContract.evaluateTransaction("getNumberOfReceivedSecrets", modelId);
+        } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] getAggregatedSecretsForCurrentRound(String modelId) {
+        try {
+            return defaultContract.evaluateTransaction("getAggregatedSecretsForCurrentRound", modelId);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }

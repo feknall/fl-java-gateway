@@ -9,22 +9,15 @@ import com.google.gson.Gson;
 
 public final class EndRoundModel {
     private final String modelId;
-    private final String round;
     private final String weights;
 
-    public EndRoundModel(@JsonProperty("modelId") final String modelId, @JsonProperty("round") final String round, @JsonProperty("weights") final String weights) {
+    public EndRoundModel(@JsonProperty("modelId") final String modelId, @JsonProperty("weights") final String weights) {
         this.modelId = modelId;
-        this.round = round;
         this.weights = weights;
     }
 
     public String getModelId() {
         return modelId;
-    }
-
-
-    public String getRound() {
-        return round;
     }
 
     public String getWeights() {
