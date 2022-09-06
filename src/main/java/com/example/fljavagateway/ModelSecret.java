@@ -7,14 +7,16 @@ package com.example.fljavagateway;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 
-public record ModelSecret(String modelId, String weights1, String weights2) {
+public record ModelSecret(String modelId, String weights1, String weights2, String datasetSize) {
 
     public ModelSecret(@JsonProperty("modelId") final String modelId,
                        @JsonProperty("weights1") final String weights1,
-                       @JsonProperty("weights2") final String weights2) {
+                       @JsonProperty("weights2") final String weights2,
+                       @JsonProperty("datasetSize") final String datasetSize) {
         this.modelId = modelId;
         this.weights1 = weights1;
         this.weights2 = weights2;
+        this.datasetSize = datasetSize;
     }
 
 

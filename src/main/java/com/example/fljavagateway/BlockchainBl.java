@@ -90,14 +90,15 @@ public class BlockchainBl {
         }
     }
 
-    public List<byte[]> addModelSecret(String modelId, String weights1, String weights2) {
+    public List<byte[]> addModelSecret(String modelId, String weights1, String weights2, String datasetSize) {
+        logger.info(String.format("addModelSecret modelId: %s datasetSize: %s", modelId, datasetSize));
         try {
             List<byte[]> list = new ArrayList<>();
 
-            byte[] resp1 = org1Contract.submitTransaction("addModelSecret", modelId, weights1);
+            byte[] resp1 = org1Contract.submitTransaction("addModelSecret", modelId, weights1, datasetSize);
             list.add(resp1);
 
-            byte[] resp2 = org2Contract.submitTransaction("addModelSecret", modelId, weights2);
+            byte[] resp2 = org2Contract.submitTransaction("addModelSecret", modelId, weights2, datasetSize);
             list.add(resp2);
 
             return list;

@@ -114,7 +114,8 @@ public class BlockchainRest {
     public List<byte[]> addModelSecret(@RequestBody ModelSecret modelSecret) {
         return blockchainBl.addModelSecret(modelSecret.modelId(),
                 modelSecret.weights1(),
-                modelSecret.weights2());
+                modelSecret.weights2(),
+                modelSecret.datasetSize());
     }
 
     @GetMapping("/trainer/getEndRoundModel")
