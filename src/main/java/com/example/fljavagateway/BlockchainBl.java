@@ -130,25 +130,25 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] readModelSecrets(String modelId, String round) {
+    public byte[] getModelSecretList(String modelId, String round) {
         try {
-            return aggregatorContract.evaluateTransaction("readModelSecrets", modelId, round);
+            return aggregatorContract.evaluateTransaction("getModelSecretList", modelId, round);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public byte[] readModelSecretsForCurrentRound(String modelId) {
+    public byte[] getModelSecretListForCurrentRound(String modelId) {
         try {
-            return aggregatorContract.evaluateTransaction("readModelSecretsForCurrentRound", modelId);
+            return aggregatorContract.evaluateTransaction("getModelSecretListForCurrentRound", modelId);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public byte[] readEndRoundModel(String modelId, String round) {
+    public byte[] getEndRoundModel(String modelId) {
         try {
-            return defaultContract.evaluateTransaction("readEndRoundModel", modelId, round);
+            return defaultContract.evaluateTransaction("getEndRoundModel", modelId);
         } catch (GatewayException e) {
             throw new RuntimeException(e);
         }
@@ -274,10 +274,26 @@ public class BlockchainBl {
         }
     }
 
-    public byte[] getAggregatedSecretsForCurrentRound(String modelId) {
+    public byte[] getAggregatedSecretListForCurrentRound(String modelId) {
         try {
-            return defaultContract.evaluateTransaction("getAggregatedSecretsForCurrentRound", modelId);
+            return defaultContract.evaluateTransaction("getAggregatedSecretListForCurrentRound", modelId);
         } catch (GatewayException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] checkInAggregator() {
+        try {
+            return defaultContract.submitTransaction("checkInAggregator");
+        } catch (GatewayException | CommitException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] checkInLeadAggregator() {
+        try {
+            return defaultContract.submitTransaction("checkInLeadAggregator");
+        } catch (GatewayException | CommitException e) {
             throw new RuntimeException(e);
         }
     }

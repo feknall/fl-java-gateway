@@ -65,9 +65,9 @@ public class BlockchainRest {
         return blockchainBl.getNumberOfReceivedAggregatedSecrets(modelId);
     }
 
-    @GetMapping("/leadAggregator/getAggregatedSecretsForCurrentRound")
+    @GetMapping("/leadAggregator/getAggregatedSecretListForCurrentRound")
     public byte[] getAggregatedSecretsForCurrentRound(@RequestParam String modelId) {
-        return blockchainBl.getAggregatedSecretsForCurrentRound(modelId);
+        return blockchainBl.getAggregatedSecretListForCurrentRound(modelId);
     }
 
     @PostMapping("/aggregator/addAggregatedSecret")
@@ -85,19 +85,29 @@ public class BlockchainRest {
         return blockchainBl.getNumberOfReceivedSecrets(modelId);
     }
 
-    @GetMapping("/aggregator/readModelSecrets")
-    public byte[] readModelSecrets(@RequestParam String modelId, @RequestParam String round) {
-        return blockchainBl.readModelSecrets(modelId, round);
+    @GetMapping("/aggregator/getModelSecretList")
+    public byte[] getModelSecretList(@RequestParam String modelId, @RequestParam String round) {
+        return blockchainBl.getModelSecretList(modelId, round);
     }
 
-    @GetMapping("/aggregator/readModelSecretsForCurrentRound")
-    public byte[] readModelSecretsForCurrentRound(@RequestParam String modelId) {
-        return blockchainBl.readModelSecretsForCurrentRound(modelId);
+    @GetMapping("/aggregator/getModelSecretListForCurrentRound")
+    public byte[] getModelSecretListForCurrentRound(@RequestParam String modelId) {
+        return blockchainBl.getModelSecretListForCurrentRound(modelId);
     }
 
     @PostMapping("/trainer/checkInTrainer")
     public byte[] checkInTrainer() {
         return blockchainBl.checkInTrainer();
+    }
+
+    @PostMapping("/aggregator/checkInAggregator")
+    public byte[] checkInAggregator() {
+        return blockchainBl.checkInAggregator();
+    }
+
+    @PostMapping("/leadAggregator/checkInLeadAggregator")
+    public byte[] checkInLeadAggregator() {
+        return blockchainBl.checkInLeadAggregator();
     }
 
     @PostMapping("/trainer/addModelSecret")
@@ -107,9 +117,9 @@ public class BlockchainRest {
                 modelSecret.weights2());
     }
 
-    @GetMapping("/trainer/readEndRoundModel")
-    public byte[] readEndRoundModel(@RequestParam String modelId, @RequestParam String round) {
-        return blockchainBl.readEndRoundModel(modelId, round);
+    @GetMapping("/trainer/getEndRoundModel")
+    public byte[] getEndRoundModel(@RequestParam String modelId) {
+        return blockchainBl.getEndRoundModel(modelId);
     }
 
     @GetMapping("/general/getPersonalInfo")
